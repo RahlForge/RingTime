@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+    <string name="addRingTime">Add new RingTime</string>
+    <string-array name="ringTimes">
+        <item>@string/addRingTime</item>
+    </string-array>
+</resources>

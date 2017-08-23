@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/linearLayout3">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/setFrequencyLayout">
+        <TextView
+            android:text="Frequency"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/textView1"
+            android:layout_marginRight="30sp" />
+        <RadioGroup
+            android:minWidth="25px"
+            android:minHeight="25px"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/frequencyGroup">
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="Every Day"
+                android:id="@+id/everyDayButton" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Certain Days"
+                android:id="@+id/certainDaysButton" />
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Specific Date"
+                android:id="@+id/specificDateButton" />
+        </RadioGroup>
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/certainDaysLayout"
+        android:gravity="center_horizontal">
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sundayButton"
+            android:text="Su"
+            android:textOff="Su"
+            android:textOn="Su"
+            android:checked="true"
+            android:minHeight="0sp"
+            android:minWidth="0sp" />
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mondayButton"
+            android:minHeight="0sp"
+            android:minWidth="0sp"
+            android:textOff="Mo"
+            android:textOn="Mo"
+            android:checked="true" />
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tuesdayButton"
+            android:minWidth="0sp"
+            android:minHeight="0sp"
+            android:textOff="Tu"
+            android:textOn="Tu"
+            android:checked="true" />
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/wednesdayButton"
+            android:minWidth="0sp"
+            android:minHeight="0sp"
+            android:textOff="We"
+            android:textOn="We"
+            android:checked="true" />
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/thursdayButton"
+            android:minHeight="0sp"
+            android:minWidth="0sp"
+            android:textOff="Th"
+            android:textOn="Th"
+            android:checked="true" />
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/fridayButton"
+            android:minHeight="0sp"
+            android:minWidth="0sp"
+            android:textOff="Fr"
+            android:textOn="Fr"
+            android:checked="true" />
+        <ToggleButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/saturdayButton"
+            android:minHeight="0sp"
+            android:minWidth="0sp"
+            android:textOff="Sa"
+            android:textOn="Sa"
+            android:checked="true" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/specificDateLayout"
+        android:gravity="center">
+        <Button
+            android:text="Select Date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/selectDateButton" />
+        <EditText
+            android:inputType="date"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/specificDateText"
+            android:textIsSelectable="false" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ringTimeLayout"
+        android:gravity="center">
+        <Button
+            android:text="Set Ring Time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ringTimeButton" />
+        <EditText
+            android:inputType="text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ringTimeText"
+            android:textIsSelectable="false" />
+        <TextView
+            android:text="Set Volume"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView2"
+            android:gravity="center" />
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/volumeSeekBar" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/volumeLayout">
+        <CheckBox
+            android:text="Ringer Volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/ringerCheckBox" />
+        <CheckBox
+            android:text="Notification Volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/notificationCheckBox" />
+        <CheckBox
+            android:text="Media Volume"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mediaCheckBox" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout4"
+        android:gravity="center">
+        <Button
+            android:text="Create RingTime"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/createButton" />
+        <Button
+            android:text="Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:id="@+id/cancelButton" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="vertical"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout5">
+        <Button
+            android:text="Delete RingTime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/deleteButton"
+            android:backgroundTint="#ffff0000" />
+    </LinearLayout>
+</LinearLayout>
