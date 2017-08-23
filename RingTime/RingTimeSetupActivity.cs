@@ -44,12 +44,10 @@ namespace RingTime
 
         private void TimePickerCallback(object sender, TimePickerDialog.TimeSetEventArgs e)
         {
-            string ampm = "AM";
-            if (e.HourOfDay > 11)
-                ampm = "PM";
-            string time = string.Format("{0}:{1} {2}", e.HourOfDay - 11, e.Minute.ToString().PadLeft(2, '0'), ampm);
+            string timeString = string.Format("{0}:{1}", e.HourOfDay, e.Minute.ToString().PadLeft(2, '0'));
+            DateTime time = DateTime.Parse(timeString);            
             var timeText = FindViewById<TextView>(Resource.Id.ringTimeText);
-            timeText.Text = time;
+            timeText.Text = time.ToShortTimeString();
         }
 
         protected override Dialog OnCreateDialog(int id)
