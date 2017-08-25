@@ -5,23 +5,24 @@
     android:layout_height="match_parent"
     android:id="@+id/linearLayout3">
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/setFrequencyLayout">
+        android:id="@+id/setFrequencyLayout"
+        android:gravity="center">
         <TextView
             android:text="Frequency"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/textView1"
-            android:layout_marginRight="30sp" />
+            android:id="@+id/textView1" />
         <RadioGroup
             android:minWidth="25px"
             android:minHeight="25px"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/frequencyGroup">
+            android:id="@+id/frequencyGroup"
+            android:orientation="horizontal">
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -47,7 +48,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/certainDaysLayout"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:layout_marginTop="10sp"
+        android:layout_marginBottom="10sp">
         <ToggleButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,7 +60,8 @@
             android:textOn="Su"
             android:checked="true"
             android:minHeight="0sp"
-            android:minWidth="0sp" />
+            android:minWidth="0sp"
+            android:layout_marginRight="10sp" />
         <ToggleButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,7 +70,8 @@
             android:minWidth="0sp"
             android:textOff="Mo"
             android:textOn="Mo"
-            android:checked="true" />
+            android:checked="true"
+            android:layout_marginRight="10sp" />
         <ToggleButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -75,7 +80,8 @@
             android:minHeight="0sp"
             android:textOff="Tu"
             android:textOn="Tu"
-            android:checked="true" />
+            android:checked="true"
+            android:layout_marginRight="10sp" />
         <ToggleButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -93,7 +99,8 @@
             android:minWidth="0sp"
             android:textOff="Th"
             android:textOn="Th"
-            android:checked="true" />
+            android:checked="true"
+            android:layout_marginLeft="10sp" />
         <ToggleButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -102,7 +109,8 @@
             android:minWidth="0sp"
             android:textOff="Fr"
             android:textOn="Fr"
-            android:checked="true" />
+            android:checked="true"
+            android:layout_marginLeft="10sp" />
         <ToggleButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -111,7 +119,8 @@
             android:minWidth="0sp"
             android:textOff="Sa"
             android:textOn="Sa"
-            android:checked="true" />
+            android:checked="true"
+            android:layout_marginLeft="10sp" />
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -129,7 +138,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/specificDateText"
-            android:textIsSelectable="false" />
+            android:textIsSelectable="false"
+            android:cursorVisible="false" />
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -147,45 +157,73 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/ringTimeText"
-            android:textIsSelectable="false" />
-        <TextView
-            android:text="Set Volume"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textView2"
-            android:gravity="center" />
-        <SeekBar
+            android:textIsSelectable="false"
+            android:cursorVisible="false" />
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/volumeSeekBar" />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/volumeLayout">
-        <CheckBox
-            android:text="Ringer Volume"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/ringerCheckBox" />
-        <CheckBox
-            android:text="Notification Volume"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/notificationCheckBox" />
-        <CheckBox
-            android:text="Media Volume"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/mediaCheckBox" />
+            android:id="@+id/volumeLayout"
+            android:gravity="center">
+            <TextView
+                android:text="Set Volume"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView2"
+                android:gravity="center" />
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/volumeOptionsGroup"
+                android:orientation="horizontal"
+                android:gravity="center">
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Silence"
+                    android:id="@+id/silenceButton" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Vibrate"
+                    android:id="@+id/vibrateButton" />
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ringer"
+                    android:id="@+id/ringerButton"
+                    android:checked="true" />
+            </RadioGroup>
+            <TextView
+                android:text="Ringer Volume"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView4" />
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ringerVolumeSeekBar"
+                android:progress="100" />
+            <TextView
+                android:text="Notification Volume"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView4" />
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/notificationVolumeSeekBar"
+                android:progress="100" />
+        </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout4"
+        android:id="@+id/createLayout"
         android:gravity="center">
         <Button
             android:text="Create RingTime"
@@ -210,6 +248,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/deleteButton"
-            android:backgroundTint="#ffff0000" />
+            android:backgroundTint="#ffff0000"
+            android:visibility="visible" />
     </LinearLayout>
 </LinearLayout>

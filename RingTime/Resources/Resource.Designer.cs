@@ -76,8 +76,8 @@ namespace RingTime
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f06001e
-			public const int cancelButton = 2131099678;
+			// aapt resource value: 0x7f060021
+			public const int cancelButton = 2131099681;
 			
 			// aapt resource value: 0x7f060006
 			public const int certainDaysButton = 2131099654;
@@ -85,11 +85,14 @@ namespace RingTime
 			// aapt resource value: 0x7f060008
 			public const int certainDaysLayout = 2131099656;
 			
-			// aapt resource value: 0x7f06001d
-			public const int createButton = 2131099677;
-			
 			// aapt resource value: 0x7f060020
-			public const int deleteButton = 2131099680;
+			public const int createButton = 2131099680;
+			
+			// aapt resource value: 0x7f06001f
+			public const int createLayout = 2131099679;
+			
+			// aapt resource value: 0x7f060023
+			public const int deleteButton = 2131099683;
 			
 			// aapt resource value: 0x7f060005
 			public const int everyDayButton = 2131099653;
@@ -103,20 +106,14 @@ namespace RingTime
 			// aapt resource value: 0x7f060001
 			public const int linearLayout3 = 2131099649;
 			
-			// aapt resource value: 0x7f06001c
-			public const int linearLayout4 = 2131099676;
-			
-			// aapt resource value: 0x7f06001f
-			public const int linearLayout5 = 2131099679;
-			
-			// aapt resource value: 0x7f06001b
-			public const int mediaCheckBox = 2131099675;
+			// aapt resource value: 0x7f060022
+			public const int linearLayout5 = 2131099682;
 			
 			// aapt resource value: 0x7f06000a
 			public const int mondayButton = 2131099658;
 			
-			// aapt resource value: 0x7f06001a
-			public const int notificationCheckBox = 2131099674;
+			// aapt resource value: 0x7f06001e
+			public const int notificationVolumeSeekBar = 2131099678;
 			
 			// aapt resource value: 0x7f060014
 			public const int ringTimeButton = 2131099668;
@@ -130,8 +127,11 @@ namespace RingTime
 			// aapt resource value: 0x7f060015
 			public const int ringTimeText = 2131099669;
 			
-			// aapt resource value: 0x7f060019
-			public const int ringerCheckBox = 2131099673;
+			// aapt resource value: 0x7f06001b
+			public const int ringerButton = 2131099675;
+			
+			// aapt resource value: 0x7f06001d
+			public const int ringerVolumeSeekBar = 2131099677;
 			
 			// aapt resource value: 0x7f06000f
 			public const int saturdayButton = 2131099663;
@@ -141,6 +141,9 @@ namespace RingTime
 			
 			// aapt resource value: 0x7f060002
 			public const int setFrequencyLayout = 2131099650;
+			
+			// aapt resource value: 0x7f060019
+			public const int silenceButton = 2131099673;
 			
 			// aapt resource value: 0x7f060007
 			public const int specificDateButton = 2131099655;
@@ -157,8 +160,11 @@ namespace RingTime
 			// aapt resource value: 0x7f060003
 			public const int textView1 = 2131099651;
 			
-			// aapt resource value: 0x7f060016
-			public const int textView2 = 2131099670;
+			// aapt resource value: 0x7f060017
+			public const int textView2 = 2131099671;
+			
+			// aapt resource value: 0x7f06001c
+			public const int textView4 = 2131099676;
 			
 			// aapt resource value: 0x7f06000d
 			public const int thursdayButton = 2131099661;
@@ -166,11 +172,14 @@ namespace RingTime
 			// aapt resource value: 0x7f06000b
 			public const int tuesdayButton = 2131099659;
 			
-			// aapt resource value: 0x7f060018
-			public const int volumeLayout = 2131099672;
+			// aapt resource value: 0x7f06001a
+			public const int vibrateButton = 2131099674;
 			
-			// aapt resource value: 0x7f060017
-			public const int volumeSeekBar = 2131099671;
+			// aapt resource value: 0x7f060016
+			public const int volumeLayout = 2131099670;
+			
+			// aapt resource value: 0x7f060018
+			public const int volumeOptionsGroup = 2131099672;
 			
 			// aapt resource value: 0x7f06000c
 			public const int wednesdayButton = 2131099660;
