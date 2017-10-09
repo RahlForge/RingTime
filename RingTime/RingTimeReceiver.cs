@@ -11,6 +11,7 @@ using Android.Views;
 using Android.Widget;
 using Android.Media;
 using Java.Util;
+using Newtonsoft.Json;
 
 namespace RingTime
 {
@@ -19,7 +20,11 @@ namespace RingTime
     {
         public override void OnReceive(Context context, Intent intent)
         {
-            Toast.MakeText(context, "RingTime activated", ToastLength.Short).Show();
+            Bundle b = intent.GetBundleExtra("ringtime");
+            Toast.MakeText(context, "RingTime " + b.GetString("ringname") + " activated.\n" +
+                "RingTime: " + b.GetString("rundate") + ", " + b.GetString("runtime") + "\n" +
+                "Ringer Volume: " + b.GetString("ringervolume") + "\n" +
+                "Notification Volume: " + b.GetString("notificationvolume"), ToastLength.Long).Show();
             /*
             AudioManager mgr = (AudioManager)context.GetSystemService(Context.AudioService);
             mgr.SetStreamVolume(Stream.Ring, intent.GetIntExtra("ringer_volume", 0), 0);

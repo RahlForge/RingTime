@@ -3,7 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/linearLayout3">
+    android:id="@+id/linearLayout3"
+    android:scrollbars="vertical">
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -15,7 +16,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:id="@+id/textView1" />
+            android:id="@+id/frequencyLabel" />
         <RadioGroup
             android:minWidth="25px"
             android:minHeight="25px"
@@ -170,7 +171,7 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView2"
+                android:id="@+id/setVolumeLabel"
                 android:gravity="center" />
             <RadioGroup
                 android:layout_width="match_parent"
@@ -191,7 +192,7 @@
                 <RadioButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ringer"
+                    android:text="Ring"
                     android:id="@+id/ringerButton"
                     android:checked="true" />
             </RadioGroup>
@@ -217,6 +218,18 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/notificationVolumeSeekBar"
                 android:progress="100" />
+            <TextView
+                android:text="Name Your New RingTime"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ringTimeNameLabel"
+                android:gravity="center_horizontal" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/ringTimeName"
+                android:gravity="center_horizontal" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout

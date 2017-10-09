@@ -102,10 +102,11 @@ namespace RingTime
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
+            // Prepare the AlarmManager and new Intent for creating the alarm service
             AlarmManager manager = (AlarmManager)GetSystemService(AlarmService);
             Intent ringTimeIntent = new Intent(this, typeof(RingTimeReceiver));
 
-            /*
+            // Generate the new ringtime object
             RingTimeObject rto;
             var timeText = FindViewById<TextView>(Resource.Id.ringTimeText);
             if (certainDaysButton.Checked)
@@ -120,14 +121,13 @@ namespace RingTime
             }
             else
                 rto = new RingTimeObject(DateTime.Parse(timeText.Text), ringerVolume.Progress, notificationVolume.Progress);
-            */
 
-            // Set ringer and notification volume
-            ringTimeIntent.PutExtra("ringer_volume", ringerVolume.Progress);
-            ringTimeIntent.PutExtra("notification_volume", notificationVolume.Progress);
+            ringTimeIntent.PutExtra("ringtime", rto.ToBundle());
 
-            PendingIntent pendingIntent = PendingIntent.GetBroadcast(this, 0, ringTimeIntent, 0);
+            PendingIntent pendingIntent = PendingIntent.GetBroadcast(this, 0, ringTimeIntent, PendingIntentFlags.UpdateCurrent);
+            manager.Set(AlarmType.ElapsedRealtime, SystemClock.ElapsedRealtime() + 5 * 1000, pendingIntent);
 
+            /*
             // Default to EveryDay for now
             int interval = 5 * 1000; // 1000 * 60 * 60 * 24;
             var ringTimeText = FindViewById<TextView>(Resource.Id.ringTimeText);
@@ -142,6 +142,7 @@ namespace RingTime
             // Set the repeater
             //manager.Set(AlarmType.ElapsedRealtime, SystemClock.ElapsedRealtime() + 5 * 1000, pendingIntent);
             manager.SetRepeating(AlarmType.RtcWakeup, calendar.TimeInMillis, interval, pendingIntent);
+            */
         }
 
         private void VolumeOptionButton_Click(object sender, EventArgs e)
@@ -220,6 +221,37 @@ namespace RingTime
             DatePickerFragment frag = DatePickerFragment.NewInstance(delegate (DateTime time)
             {
                 dateText.Text = time.ToShortDateString();
+                mon.Checked = false;
+                tues.Checked = false;
+                wed.Checked = false;
+                thurs.Checked = false;
+                fri.Checked = false;
+                sat.Checked = false;
+                sun.Checked = false;
+                switch(time.DayOfWeek)
+                {
+                    case DayOfWeek.Monday:
+                        mon.Checked = true;
+                        break;
+                    case DayOfWeek.Tuesday:
+                        tues.Checked = true;
+                        break;
+                    case DayOfWeek.Wednesday:
+                        wed.Checked = true;
+                        break;
+                    case DayOfWeek.Thursday:
+                        thurs.Checked = true;
+                        break;
+                    case DayOfWeek.Friday:
+                        fri.Checked = true;
+                        break;
+                    case DayOfWeek.Saturday:
+                        sat.Checked = true;
+                        break;
+                    case DayOfWeek.Sunday:
+                        sun.Checked = true;
+                        break;
+                }
             });
 
             frag.Show(FragmentManager, DatePickerFragment.TAG);
