@@ -20,11 +20,13 @@ namespace RingTime
     {
         public override void OnReceive(Context context, Intent intent)
         {
-            Bundle b = intent.GetBundleExtra("ringtime");
-            Toast.MakeText(context, "RingTime " + b.GetString("ringname") + " activated.\n" +
-                "RingTime: " + b.GetString("rundate") + ", " + b.GetString("runtime") + "\n" +
-                "Ringer Volume: " + b.GetString("ringervolume") + "\n" +
-                "Notification Volume: " + b.GetString("notificationvolume"), ToastLength.Long).Show();
+            var rto = new RingTimeObject(intent.GetBundleExtra("ringtime"));
+            Toast.MakeText(context, "RingTime " + rto.GetName() + " activated.\n" +
+                "RingTime: " + rto.GetRunDate() + ", " + 
+                    rto.GetRunTime() + "\n" +
+                "Ringer Volume: " + rto.GetNewRingerVolume().ToString() + "\n" +
+                "Notification Volume: " + rto.GetNewNotificationVolume().ToString(), 
+                ToastLength.Long).Show();
             /*
             AudioManager mgr = (AudioManager)context.GetSystemService(Context.AudioService);
             mgr.SetStreamVolume(Stream.Ring, intent.GetIntExtra("ringer_volume", 0), 0);

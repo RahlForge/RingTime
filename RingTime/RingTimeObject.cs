@@ -14,43 +14,37 @@ using Android.Content.Res;
 
 namespace RingTime
 {
-    enum RingTimeFrequency { EveryDay, CertainDays, SpecificDate };
+    public enum RingTimeFrequency { EveryDay, CertainDays, SpecificDate };
 
     public class RingTimeObject
     {
         // Every Day, Certain Days, Specific Date
-        private string ringName; // Name of ringer
-        private List<DayOfWeek> certainDays; // A set of days to run the service
-        private DateTime specificDate; // A specific date to run the service
-        private RingTimeFrequency ringTimeFrequency; // The frequency with which the service will run
-        private DateTime ringTime; // The time to set the new volume levels
-        private int newRingerVolume; // The new ringer volume to set
-        private int newNotificationVolume; // The new notification volume to set
+        protected string ringName; // Name of ringer
+        protected List<DayOfWeek> daysOfWeek; // A set of days to run the service
+        protected DateTime runDateTime; // The date and time to run the service     
+        protected bool runOnce; // Should this service be run only one time?
+        protected int newRingerVolume; // The new ringer volume to set
+        protected int newNotificationVolume; // The new notification volume to set     
 
-        public RingTimeObject(DateTime ringTime, int newRingerVolume, int newNotificationVolume)
+        // Define parameters for bundle strings
+        public static string bundleRingTimeObject = "ringtimeobject";
+        public static string bundleRingName = "ringname";
+        public static string bundleRunDateTime = "rundatetime";
+        public static string bundleRingerVolume = "ringervolume";
+        public static string bundleNotificationVolume = "notificationvolume";
+        public static string bundleDaysOfWeek = "daysofweek";
+
+        public RingTimeObject(DateTime runDateTime, int newRingerVolume, int newNotificationVolume, bool runOnce = false)
         {
-            this.ringTime = ringTime;
+            this.runDateTime = runDateTime;
             this.newRingerVolume = newRingerVolume;
             this.newNotificationVolume = newNotificationVolume;
-            ringTimeFrequency = RingTimeFrequency.EveryDay;
+            this.daysOfWeek = daysOfWeek;
         }
 
-        public RingTimeObject(DateTime ringTime, int newRingerVolume, int newNotificationVolume, List<DayOfWeek> certainDays) 
-            :this(ringTime, newRingerVolume, newNotificationVolume)
-        {
-            this.certainDays = certainDays;
-            ringTimeFrequency = RingTimeFrequency.CertainDays;
-
-        }
-
-        public RingTimeObject(DateTime ringTime, int newRingerVolume, int newNotificationVolume, DateTime specificDate)
-            :this(ringTime, newRingerVolume, newNotificationVolume)
-        {
-            this.ringTime = ringTime;
-            this.newRingerVolume = newRingerVolume;
-            this.newNotificationVolume = newNotificationVolume;
-            this.specificDate = specificDate;
-            ringTimeFrequency = RingTimeFrequency.SpecificDate;
+        public RingTimeObject(Bundle b)
+            :this(DateTime.Parse(b.GetString(bundleRunDateTime)), b.GetInt(bundleRingerVolume), b.GetInt(bundleNotificationVolume))
+        {            
         }
 
         /// <summary>
@@ -75,21 +69,26 @@ namespace RingTime
         /// Retrieves the DateTime object holding the repeatable alarm time
         /// </summary>
         /// <returns>newRingerVolume</returns>
-        public DateTime GetRunTime()
+        public string GetRunTime()
         {
-            return ringTime;
+            return runDateTime.ToShortTimeString();
         }
 
 
-        public DateTime GetRunDate()
+        public string GetRunDate()
         {
-            return specificDate;
+            return runDateTime.ToShortDateString();
+        }
+
+        public string GetRunDateTime()
+        {
+            return runDateTime.ToString();
         }
 
 
         public List<DayOfWeek> GetRunDays()
         {
-            return certainDays;
+            return daysOfWeek;
         }
 
         public string GetName()
@@ -100,11 +99,10 @@ namespace RingTime
         public Bundle ToBundle()
         {
             Bundle b = new Bundle();
-            b.PutString("ringname", GetName());
-            b.PutString("rundate", GetRunDate().ToShortDateString());
-            b.PutString("runtime", GetRunTime().ToShortTimeString());
-            b.PutString("ringervolume", GetNewRingerVolume().ToString());
-            b.PutString("notificationvolume", GetNewNotificationVolume().ToString());
+            b.PutString(bundleRingName, GetName());
+            b.PutString(bundleRunDateTime, GetRunDateTime());
+            b.PutInt(bundleRingerVolume, GetNewRingerVolume());
+            b.PutInt(bundleNotificationVolume, GetNewNotificationVolume());
             return b;
         }
     }

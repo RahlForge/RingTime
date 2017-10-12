@@ -1,9 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="ApplicationName">RingTime</string>
-    <string name="BundleRingName">ringname</string>
-    <string name="BundleRunDate">rundate</string>
-    <string name="BundleRunTime">runtime</string>
-    <string name="BundleRingerVolume">ringervolume</string>
-    <string name="BundleNotificationVolume">notificationvolume</string>
 </resources>

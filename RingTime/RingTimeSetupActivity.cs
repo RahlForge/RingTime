@@ -104,26 +104,29 @@ namespace RingTime
         {
             // Prepare the AlarmManager and new Intent for creating the alarm service
             AlarmManager manager = (AlarmManager)GetSystemService(AlarmService);
-            Intent ringTimeIntent = new Intent(this, typeof(RingTimeReceiver));
 
             // Generate the new ringtime object
             RingTimeObject rto;
             var timeText = FindViewById<TextView>(Resource.Id.ringTimeText);
-            if (certainDaysButton.Checked)
+            var runTime = DateTime.Parse(timeText.Text);
+            BuildDaysOfWeekList(runTime.TimeOfDay);
+
+            Intent ringTimeIntent = new Intent(this, typeof(RingTimeReceiver));
+
+            // Set the run date & time
+            var runDateTime = new DateTime();
+            if (specificDateButton.Checked)
             {
-                BuildDaysOfWeekList();
-                rto = new RingTimeObject(DateTime.Parse(timeText.Text), ringerVolume.Progress, notificationVolume.Progress, dow); 
-            }
-            else if (specificDateButton.Checked)
-            {
-                var dateText = FindViewById<TextView>(Resource.Id.specificDateText);
-                rto = new RingTimeObject(DateTime.Parse(timeText.Text), ringerVolume.Progress, notificationVolume.Progress, DateTime.Parse(dateText.Text));
+                runDateTime = DateTime.Parse(FindViewById<TextView>(Resource.Id.specificDateText).Text);
+                runDateTime = new DateTime(runDateTime.Year, runDateTime.Month, runDateTime.Day,
+                    runTime.TimeOfDay.Hours, runTime.TimeOfDay.Minutes, runTime.TimeOfDay.Seconds);
             }
             else
-                rto = new RingTimeObject(DateTime.Parse(timeText.Text), ringerVolume.Progress, notificationVolume.Progress);
+                runDateTime = nextRunDateTime(dow[0], runTime.TimeOfDay);
 
+            // Create the RingTimeObject and send it to the service
+            rto = new RingTimeObject(runDateTime, ringerVolume.Progress, notificationVolume.Progress, specificDateButton.Checked);
             ringTimeIntent.PutExtra("ringtime", rto.ToBundle());
-
             PendingIntent pendingIntent = PendingIntent.GetBroadcast(this, 0, ringTimeIntent, PendingIntentFlags.UpdateCurrent);
             manager.Set(AlarmType.ElapsedRealtime, SystemClock.ElapsedRealtime() + 5 * 1000, pendingIntent);
 
@@ -145,28 +148,63 @@ namespace RingTime
             */
         }
 
+        private DateTime nextRunDateTime(DayOfWeek d, TimeSpan runTime)
+        {
+            var today = DateTime.Today;
+            if (d == DateTime.Now.DayOfWeek && 
+                DateTime.Now.TimeOfDay >= runTime)
+                today = today.AddDays(1);
+            var daysUntilNextRun = (d - today.DayOfWeek + 7) % 7;
+            var nextRun = today.AddDays(daysUntilNextRun);
+            return new DateTime(nextRun.Year, nextRun.Month, nextRun.Day, runTime.Hours, runTime.Minutes, runTime.Seconds);
+        }
+
         private void VolumeOptionButton_Click(object sender, EventArgs e)
         {
             CheckVolumeOption();
         }
 
-        private void BuildDaysOfWeekList()
+        private void BuildDaysOfWeekList(TimeSpan runTime)
         {
             dow.Clear();
-            if (mon.Checked)
-                dow.Add(DayOfWeek.Monday);
-            if (tues.Checked)
-                dow.Add(DayOfWeek.Tuesday);
-            if (wed.Checked)
-                dow.Add(DayOfWeek.Wednesday);
-            if (thurs.Checked)
-                dow.Add(DayOfWeek.Thursday);
-            if (fri.Checked)
-                dow.Add(DayOfWeek.Friday);
-            if (sat.Checked)
-                dow.Add(DayOfWeek.Saturday);
-            if (sun.Checked)
-                dow.Add(DayOfWeek.Sunday);
+            var today = DateTime.Now;
+            if (DateTime.Now.TimeOfDay >= runTime)
+                today = today.AddDays(1);
+            for (int i = 0; i < 7; i++)
+            {
+                switch(today.DayOfWeek)
+                {
+                    case DayOfWeek.Monday:
+                        if (mon.Checked)
+                            dow.Add(DayOfWeek.Monday);
+                        break;
+                    case DayOfWeek.Tuesday:
+                        if (tues.Checked)
+                            dow.Add(DayOfWeek.Tuesday);
+                        break;
+                    case DayOfWeek.Wednesday:
+                        if (wed.Checked)
+                            dow.Add(DayOfWeek.Wednesday);
+                        break;
+                    case DayOfWeek.Thursday:
+                        if (thurs.Checked)
+                            dow.Add(DayOfWeek.Thursday);
+                        break;
+                    case DayOfWeek.Friday:
+                        if (fri.Checked)
+                            dow.Add(DayOfWeek.Friday);
+                        break;
+                    case DayOfWeek.Saturday:
+                        if (sat.Checked)
+                            dow.Add(DayOfWeek.Saturday);
+                        break;
+                    case DayOfWeek.Sunday:
+                        if (sun.Checked)
+                            dow.Add(DayOfWeek.Sunday);
+                        break;
+                }
+                today = today.AddDays(1);
+            }
         }
 
         private void InitBar(SeekBar bar, Android.Media.Stream stream)
