@@ -64,6 +64,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RingTimeObject.cs" />
     <Compile Include="RingTimeReceiver.cs" />
+    <Compile Include="RingTimeServiceActivity.cs" />
     <Compile Include="RingTimeSetupActivity.cs" />
   </ItemGroup>
   <ItemGroup>

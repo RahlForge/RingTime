@@ -34,7 +34,28 @@ namespace RingTime
         public static string bundleNotificationVolume = "notificationvolume";
         public static string bundleDaysOfWeek = "daysofweek";
 
-        public RingTimeObject(DateTime runDateTime, int newRingerVolume, int newNotificationVolume, bool runOnce = false)
+        public static int[] GetRunDays(List<DayOfWeek> daysOfWeek)
+        {
+            int[] days = new int[daysOfWeek.Count];
+            for(int i = 0; i < daysOfWeek.Count; i++)
+            {
+                days[i] = (int)daysOfWeek[i];
+            }
+            return days;
+        }
+
+        public static List<DayOfWeek> GetRunDays(int[] daysOfWeek)
+        {
+            List<DayOfWeek> days = new List<DayOfWeek>();
+            for (int i = 0; i < daysOfWeek.Length; i++)
+            {
+                days.Add((DayOfWeek)daysOfWeek[i]);
+            }
+            return days;
+        }
+
+        public RingTimeObject(DateTime runDateTime, int newRingerVolume, int newNotificationVolume, 
+            List<DayOfWeek> daysOfWeek, bool runOnce = false)
         {
             this.runDateTime = runDateTime;
             this.newRingerVolume = newRingerVolume;
@@ -43,7 +64,8 @@ namespace RingTime
         }
 
         public RingTimeObject(Bundle b)
-            :this(DateTime.Parse(b.GetString(bundleRunDateTime)), b.GetInt(bundleRingerVolume), b.GetInt(bundleNotificationVolume))
+            :this(DateTime.Parse(b.GetString(bundleRunDateTime)), b.GetInt(bundleRingerVolume), 
+                 b.GetInt(bundleNotificationVolume), GetRunDays(b.GetIntArray(bundleDaysOfWeek)))
         {            
         }
 
@@ -94,6 +116,23 @@ namespace RingTime
         public string GetName()
         {
             return ringName;
+        }
+
+        public void SetNextRunDateTime()
+        {
+            var today = DateTime.Today;
+            if (d == DateTime.Now.DayOfWeek &&
+                DateTime.Now.TimeOfDay >= runTime)
+                today = today.AddDays(1);
+            var daysUntilNextRun = (d - today.DayOfWeek + 7) % 7;
+            var nextRun = today.AddDays(daysUntilNextRun);
+            return new DateTime(nextRun.Year, nextRun.Month, nextRun.Day, 
+                runTime.Hours, runTime.Minutes, runTime.Seconds);
+        }
+
+        public void SetNextRunDateTime(DateTime runDateTime)
+        {
+
         }
 
         public Bundle ToBundle()

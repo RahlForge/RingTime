@@ -102,61 +102,29 @@ namespace RingTime
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
-            // Prepare the AlarmManager and new Intent for creating the alarm service
-            AlarmManager manager = (AlarmManager)GetSystemService(AlarmService);
 
             // Generate the new ringtime object
             RingTimeObject rto;
+
             var timeText = FindViewById<TextView>(Resource.Id.ringTimeText);
-            var runTime = DateTime.Parse(timeText.Text);
-            BuildDaysOfWeekList(runTime.TimeOfDay);
-
-            Intent ringTimeIntent = new Intent(this, typeof(RingTimeReceiver));
-
-            // Set the run date & time
-            var runDateTime = new DateTime();
-            if (specificDateButton.Checked)
-            {
-                runDateTime = DateTime.Parse(FindViewById<TextView>(Resource.Id.specificDateText).Text);
-                runDateTime = new DateTime(runDateTime.Year, runDateTime.Month, runDateTime.Day,
-                    runTime.TimeOfDay.Hours, runTime.TimeOfDay.Minutes, runTime.TimeOfDay.Seconds);
-            }
-            else
-                runDateTime = nextRunDateTime(dow[0], runTime.TimeOfDay);
+            var runDateTime = DateTime.Parse(timeText.Text);
+            BuildDaysOfWeekList(runDateTime.TimeOfDay);            
 
             // Create the RingTimeObject and send it to the service
             rto = new RingTimeObject(runDateTime, ringerVolume.Progress, notificationVolume.Progress, specificDateButton.Checked);
-            ringTimeIntent.PutExtra("ringtime", rto.ToBundle());
-            PendingIntent pendingIntent = PendingIntent.GetBroadcast(this, 0, ringTimeIntent, PendingIntentFlags.UpdateCurrent);
-            manager.Set(AlarmType.ElapsedRealtime, SystemClock.ElapsedRealtime() + 5 * 1000, pendingIntent);
+            if (specificDateButton.Checked)
+            {
+                var runDate = DateTime.Parse(FindViewById<TextView>(Resource.Id.specificDateText).Text);
+                runDateTime = new DateTime(runDate.Year, runDate.Month, runDate.Day,
+                    runDateTime.TimeOfDay.Hours, runDateTime.TimeOfDay.Minutes, runDateTime.TimeOfDay.Seconds);
+                rto.SetNextRunDateTime(runDateTime);
+            }
+            else
+                rto.SetNextRunDateTime();            
 
-            /*
-            // Default to EveryDay for now
-            int interval = 5 * 1000; // 1000 * 60 * 60 * 24;
-            var ringTimeText = FindViewById<TextView>(Resource.Id.ringTimeText);
-            DateTime ringTime = DateTime.Parse(ringTimeText.Text);
-
-            // Create the calendar object to schedule the alarm
-            Calendar calendar = Calendar.GetInstance(Java.Util.TimeZone.Default);
-            calendar.TimeInMillis = JavaSystem.CurrentTimeMillis();
-            calendar.Set(CalendarField.HourOfDay, ringTime.Hour);
-            calendar.Set(CalendarField.Minute, ringTime.Minute);
-
-            // Set the repeater
-            //manager.Set(AlarmType.ElapsedRealtime, SystemClock.ElapsedRealtime() + 5 * 1000, pendingIntent);
-            manager.SetRepeating(AlarmType.RtcWakeup, calendar.TimeInMillis, interval, pendingIntent);
-            */
-        }
-
-        private DateTime nextRunDateTime(DayOfWeek d, TimeSpan runTime)
-        {
-            var today = DateTime.Today;
-            if (d == DateTime.Now.DayOfWeek && 
-                DateTime.Now.TimeOfDay >= runTime)
-                today = today.AddDays(1);
-            var daysUntilNextRun = (d - today.DayOfWeek + 7) % 7;
-            var nextRun = today.AddDays(daysUntilNextRun);
-            return new DateTime(nextRun.Year, nextRun.Month, nextRun.Day, runTime.Hours, runTime.Minutes, runTime.Seconds);
+            Intent intent = new Intent(this, typeof(RingTimeServiceActivity));
+            intent.PutExtra("ringtime", rto.ToBundle());
+            StartActivity(intent);
         }
 
         private void VolumeOptionButton_Click(object sender, EventArgs e)
